@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+edit
+<div><a href="{% url 'blog:blogs_list' %}"><span>Главная</span></a></div>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }} {# .as_p что бы формы были как строки #}
+    <input type="submit" value="Сохранить запись" />
+</form>
+
+</body>
+</html>

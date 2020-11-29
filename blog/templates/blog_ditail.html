@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div><a href="{% url 'blog:blogs_list' %}"><span>Главная</span></a></div>
+
+<div>Детальное описание</div>
+<div>Номер:{{ post_ditail.pk }}</div>
+<div>Автор:  {{ post_ditail.author }}</div>
+
+<div>Тайтл: {{ post_ditail.title }}</div>
+<div>Текст: {{ post_ditail.text }}</div>
+<div>Дата: {{ post_ditail.publish_date }}</div>
+{% if post_ditail.publish_date %}
+    <div class="date">
+        {% csrf_token %}
+        <a href="{% url 'blog:edit' pk=post_ditail.pk %}"><span style="color: blue">редактировать </span></a>
+        <div><a href="{% url 'blog:delete' pk=post_ditail.pk %}"><span>Удалить</span></a></div>
+
+    </div>
+{% endif %}
+</body>
+</html>
