@@ -11,8 +11,9 @@
 {#    <div>Номер поста {{ all_posts_s.pk }}</div>#}
 {#    <div>{{ all_posts_s.author }}</div>#}
     <h3><a href="{% url 'blog:ditail' all_posts_s.pk %}">{{ all_posts_s.title }}</a></h3>
-    <div>{{ all_posts_s.title }}</div>
-    <div>{{ all_posts_s.text }}</div>
+    <div>id: {{ all_posts_s.pk }}</div>
+    <div>title: {{ all_posts_s.title }}</div>
+    <div>text: {{ all_posts_s.text }}</div>
     <div>{{ all_posts_s.publish_date }}</div>
 {% endfor %}
 </body>
