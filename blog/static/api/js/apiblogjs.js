@@ -29,10 +29,6 @@ function postsApi(data){
                      '<div class="blog_text">' + all_posts[i].text + '</div>' +
                     '</div>'
 
-
-
-        // console.log('i')
-        // console.log(all_posts[i])
     }
     console.log(myposts)
     myposts.innerHTML = myposts.innerHTML + api_cicl
