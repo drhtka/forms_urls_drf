@@ -1,0 +1,35 @@
+html{
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+body
+{
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(28, 151, 139, 0.35);
+    color: white;
+    text-align: center;
+
+    padding: 15px;
+    font-weight: bolder;
+}
+
+.child-row{
+    padding: 10px;
+    padding-left: 10%;
+}
+
+.myPosts{
+    margin: 0 auto;
+    font-size: 30px;
+}

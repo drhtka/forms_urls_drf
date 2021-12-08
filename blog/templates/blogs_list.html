@@ -1,20 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<div><h3><a href="{% url 'blog:create' %}"><span style="color: darkgreen">Добавить пост</span> </a></h3></div>
-{% csrf_token %}
-{% for all_posts_s in all_posts %}
-{#    <div>Номер поста {{ all_posts_s.pk }}</div>#}
-{#    <div>{{ all_posts_s.author }}</div>#}
-    <h3><a href="{% url 'blog:ditail' all_posts_s.pk %}">{{ all_posts_s.title }}</a></h3>
-    <div>id: {{ all_posts_s.pk }}</div>
-    <div>title: {{ all_posts_s.title }}</div>
-    <div>text: {{ all_posts_s.text }}</div>
-    <div>{{ all_posts_s.publish_date }}</div>
-{% endfor %}
-</body>
-</html>
+{% extends "base.html" %}
+{% load static %}
+
+
+
+
+{% block content %}
+    <div class="row">
+        {% for all_posts_s in all_posts %}
+        {#    <div>Номер поста {{ all_posts_s.pk }}</div>#}
+        {#    <div>{{ all_posts_s.author }}</div>#}
+
+                <div class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-3 child-row">
+                    <h3><a class="text-decoration-none" href="{% url 'blog:ditail' all_posts_s.pk %}">{{ all_posts_s.title }}</a></h3>
+                    <div><span>Номер поста: </span>{{ all_posts_s.pk }}</div>
+                    <div><span>Название: </span>{{ all_posts_s.title }}</div>
+                    <div><span>Текст: </span>{{ all_posts_s.text }}</div>
+                    <div><span>Публикации: </span>{{ all_posts_s.publish_date }}</div>
+                </div>
+
+        {% endfor %}
+    </div>
+{% endblock content %}

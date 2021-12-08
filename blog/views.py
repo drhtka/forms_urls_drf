@@ -59,3 +59,23 @@ def DelPost(request, pk):
     else:
         form = CreateForms(instance=del_post)
     return render(request, 'delete.html', {'form': form})
+
+def PagePostApi(request):
+
+    if request.method == 'POST':
+        form = CreateForms(request.POST)
+        if form.is_valid():
+            create_post = form.save(commit=False)
+            create_post.author = request.user
+            create_post.save()
+            return redirect('blog:ditail', pk=create_post.pk)
+    else:
+        form = CreateForms
+    return render(request, 'post_api.html', {'form': form} )
+
+def Apiblogjs(request):
+    return render(request, 'apiblogjs.html', )
+
+
+def Apicreateblogjs(request):
+    return render(request, 'apicreateblogjs.html', )

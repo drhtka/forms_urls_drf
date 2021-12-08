@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
 <div><a href="{% url 'blog:blogs_list' %}"><span>Главная</span></a></div>
 
 <div>Детальное описание</div>
@@ -23,5 +18,4 @@
 
     </div>
 {% endif %}
-</body>
-</html>
+{% endblock content %}

@@ -25,7 +25,6 @@ class PostListView(APIView):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
 class CommentDetailView(generics.RetrieveAPIView):
     # выводим все коменты апи
     queryset = Comment.objects.all()
@@ -33,7 +32,7 @@ class CommentDetailView(generics.RetrieveAPIView):
 
 class PostListUrlView(APIView):
     #queryset = Post.objects.filter(title='first news')
-    # выводим один посты  по айди
+    # выводим один пост по айди
     def get(self, request, pk):
         posts = Mypost.objects.filter(id=pk)
         serializer = PostSerializer(posts, many=True)
@@ -53,3 +52,4 @@ class PostListUrlView(APIView):
         data = serializer.data
         snippet.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
