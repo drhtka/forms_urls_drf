@@ -12,12 +12,15 @@ from blog.api.serializers import PostSerializer, CommentSerializer
 class PostListView(APIView):
 
     def get(self, request):
+
         # выводим все посты  апи
         items = Mypost.objects.all()
         serializer = PostSerializer(items, many=True)
         return Response(serializer.data)
 
     def post(self, request):
+        print('POST')
+        print(request.data)
         # добавляем пост
         serializer = PostSerializer(data=request.data)
         if serializer.is_valid():

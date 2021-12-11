@@ -29,7 +29,7 @@ def CreatePost(request):
     else:
         form = CreateForms
 
-    return render(request, 'edit.html', {'form': form})
+    return render(request, 'create.html', {'form': form})
 
 def EditPost(request, pk):
     # edit_post1 = get_object_or_404(Mypost, pk=pk)

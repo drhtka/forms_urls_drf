@@ -6,14 +6,116 @@
 
 {% block content %}
    <form>
-    <input type="text" name="title">
-    <input type="text" name="text">
-    <input type="text" name="publish_date">
-
+       <div class=" d-flex justify-content-center">
+       <div class=" d-flex flex-column m-5">
+        <input class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-12  mt-2 mb-2" type="text" name="publish_title">
+           <textarea type="text" name="publish_text"></textarea>
+{#        <input class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-12 mt-2 mb-2" type="text" name="publish_date">#}
+        <input class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-12 mt-2 mb-2" type="button" onclick="createGist()" value="Сохранить запись">
+       </div>
+       </div>
    </form>
-<script>
 
-</script>
+    <script>
+
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie != '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+
+        {#function createGist() {#}
+        {#    var publish_title = document.getElementsByName('title')#}
+        {#    var publish_text = document.getElementsByName('publish_text')#}
+            {#var publish_title = document.getElementsByName('publish_date')#}
+        {#    var my_data = {title: publish_title, text:publish_text}#}
+        {##}
+        {#    fetch('http://127.0.0.1:8991/api/posts/', {#}
+        {#        method: 'post',#}
+        {#        body: my_data,#}
+        {#    }).then(function(response) {#}
+        {#        return response.json();#}
+        {#    }).then(function(data) {#}
+        {#       console.log('Created Gist:', data);#}
+        {#    });#}
+        //}
+////////////////
+        async function createGisttest() {
+            var publish_author = '1'
+            var publish_title = document.getElementsByName('publish_title')[0].value
+            var publish_text = document.getElementsByName('publish_text')[0].value
+
+            {#var my_data = {title: publish_title, text:publish_text}#}
+
+        const url = 'http://127.0.0.1:8991/api/posts/';
+        const my_data = [{author:publish_author, title: publish_title, text:publish_text}]
+            //const csrftoken = getCookie('csrftoken');
+            console.log(my_data)
+
+        try {
+            const response = await fetch(url, {
+                method: 'POST', // или 'PUT'
+                body: my_data, // данные могут быть 'строкой' или {объектом}!
+                headers: {
+                    'Content-Type': 'application/json' //,  "X-CSRFToken": csrftoken
+                }
+            });
+            const json = await response.json();
+            console.log('Успех:', JSON.stringify(json));
+            console.log('my_data')
+            console.log(my_data)
+
+            } catch (error) {
+                console.error('Ошибка:', error);
+            }
+        }
+
+
+        function createGist() {
+
+
+            var publish_author = '1'
+            var publish_title = document.getElementsByName('publish_title')[0].value
+            var publish_text = document.getElementsByName('publish_text')[0].value
+            {#const my_data = [{author:publish_author, title: publish_title, text:publish_text}]#}
+            var myData = {
+                author:publish_author, title: publish_title, text:publish_text
+            };
+
+            let csrftoken = getCookie('csrftoken');
+
+            fetch("http://127.0.0.1:8991/api/posts/", {
+                method: "post",
+                credentials: "same-origin",
+                headers: {
+                    //"X-CSRFToken": getCookie("csrftoken"),
+                    "X-CSRFToken": csrftoken,
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(myData)
+            }).then(function (response) {
+                return response.json();
+            }).then(function (data) {
+                console.log("Data is ok", data);
+            })
+                //.catch(function (ex) {
+              //  console.log("parsing failed", ex);
+            //});
+        }
+
+    </script>
 
 {% endblock %}
 

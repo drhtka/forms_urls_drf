@@ -1,4 +1,7 @@
 #-*- coding: utf-8 -*-
+import datetime
+#from datetime import datetime
+
 from django.db import models
 from django.utils import timezone
 
@@ -8,10 +11,11 @@ class Mypost(models.Model):
         verbose_name_plural = 'Активные формы'
 
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-    title = models.CharField(max_length=200)
-    text = models.TextField(blank=False)
+    title = models.CharField('Заголовок', max_length=200)
+    text = models.TextField('Запись', blank=False)
     # created_date = models.DateTimeField(default=timezone.now)
-    publish_date = models.DateField(blank=True, null=True)
+    publish_date = models.DateField('Дата публикации', auto_created=True, default=datetime.date.today)
+    # publish_date = models.DateField(blank=True, null=True, auto_created=True)
     done = models.BooleanField(default=False)
 
     def publish(self):
