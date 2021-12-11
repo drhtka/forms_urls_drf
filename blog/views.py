@@ -20,7 +20,7 @@ def PostDitail(request, pk):
 
 def CreatePost(request):
     if request.method == 'POST':
-        form = CreateForms(request.POST)
+        form = CreateForms(request.POST, request.FILES)
         if form.is_valid():
             create_post = form.save(commit=False)
             create_post.author = request.user
@@ -33,9 +33,13 @@ def CreatePost(request):
 
 def EditPost(request, pk):
     # edit_post1 = get_object_or_404(Mypost, pk=pk)
+
     edit_post = Mypost.objects.filter(pk=pk).get()
     if request.method == 'POST':
-        form = CreateForms(request.POST, instance=edit_post)
+        form = CreateForms(request.POST, request.FILES, instance=edit_post)
+        # print('form')
+        # print(form)
+
         if form.is_valid():
             edit = form.save(commit=False)
             # edit.author = request.user

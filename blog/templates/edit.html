@@ -4,11 +4,18 @@
 edit
 
 {#<div><a href="{% url 'blog:blogs_list' %}"><span>Главная</span></a></div>#}
+    <div class=" d-flex justify-content-center">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+                <div class=" d-flex flex-column">
+                    <div class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-12  mt-2 mb-2">{{ form.label }}</div>
+                    <div class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-12  mt-2 mb-2">{{ form.title }}</div>
+                    <div class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-12  mt-2 mb-2">{{ form.text }}</div>
+                    <div class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-12  mt-2 mb-2">{{ form.publish_date }}</div>
+                    <div class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-12  mt-2 mb-2">{{ form.photo }}</div>
+                    <input class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-12  mt-2 mb-2" type="submit" value="Редактировать запись" />
+                </div>
+        </form>
 
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }} {# .as_p что бы формы были как строки #}
-    <input type="submit" value="Сохранить запись" />
-</form>
-
+    </div>
 {% endblock content %}

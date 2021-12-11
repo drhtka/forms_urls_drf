@@ -5,18 +5,19 @@
 
     {#<div><a href="{% url 'blog:blogs_list' %}"><span>Главная</span></a></div>#}
     <div class=" d-flex justify-content-center">
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        <div class=" d-flex justify-content-center">
-
-        <div class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-12  mt-2 mb-2">
-            {{ form.label }}
-            {{ form.as_p }}
-            <input class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-12  mt-2 mb-2" type="submit" value="Сохранить запись" />
-        </div>
+        <div class=" d-flex flex-column">
+        <div class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-12  mt-2 mb-2">{{ form.label }}</div>
+        <div class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-12  mt-2 mb-2">{{ form.title }}</div>
+        <div class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-12  mt-2 mb-2">{{ form.text }}</div>
+        <div class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-12  mt-2 mb-2">{{ form.publish_date }}</div>
+        <div class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-12  mt-2 mb-2">{{ form.photo }}</div>
+            <input class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-12  mt-2 mb-2" type="submit" value="Добавить запись" />
         </div>
 
     </form>
+    </div>
 
 
 

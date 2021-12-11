@@ -26,7 +26,7 @@ function postsApi(data){
                     '<div class="author">' + all_posts[i].author + '</div>' +
                     '<div class="blog_id">' + all_posts[i].id + '</div>' +
                      '<div class="publish_date">' + all_posts[i].publish_date + '</div>' +
-                     '<div class="blog_text">' + all_posts[i].text + '</div>' +
+                     '<div class="blog_text col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-truncate">' + all_posts[i].text + '</div>' +
                     '</div>'
 
     }

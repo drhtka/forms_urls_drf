@@ -11,11 +11,12 @@ class Mypost(models.Model):
         verbose_name_plural = 'Активные формы'
 
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-    title = models.CharField('Заголовок', max_length=200)
+    title = models.CharField('Заголовок', max_length=12)
     text = models.TextField('Запись', blank=False)
     # created_date = models.DateTimeField(default=timezone.now)
     publish_date = models.DateField('Дата публикации', auto_created=True, default=datetime.date.today)
     # publish_date = models.DateField(blank=True, null=True, auto_created=True)
+    photo = models.ImageField(upload_to='photo_blog/%Y/%m/%d', blank=False, null=False, default='user_default_profile.jpg')
     done = models.BooleanField(default=False)
 
     def publish(self):
