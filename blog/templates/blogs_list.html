@@ -2,8 +2,6 @@
 {% load static %}
 
 
-
-
 {% block content %}
     <div class="row">
         {% for all_posts_s in all_posts %}
@@ -13,8 +11,7 @@
                 <div class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-3 child-row">
                     <h3><a class="text-decoration-none" href="{% url 'blog:ditail' all_posts_s.pk %}">{{ all_posts_s.title }}</a></h3>
                     <div><span>Номер поста: </span>{{ all_posts_s.pk }}</div>
-                    <div><span> </span><img class="main_img" src="{{ MEDIA_URL }}{{ all_posts_s.photo }}" width="176" height="185"></div>
-
+                    <div><span> </span><img class="main_img" src="{{ MEDIA_URL }}{{ all_posts_s.photo }}" ></div>
                     <div><span>Название: </span>{{ all_posts_s.title }}</div>
                     <div><span>Текст: </span>{{ all_posts_s.text }}</div>
                     <div><span>Публикации: </span>{{ all_posts_s.publish_date }}</div>

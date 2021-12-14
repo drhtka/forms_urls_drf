@@ -77,9 +77,15 @@ def PagePostApi(request):
         form = CreateForms
     return render(request, 'post_api.html', {'form': form} )
 
-def Apiblogjs(request):
+def ApiBlogjs(request):
     return render(request, 'apiblogjs.html', )
 
 
-def Apicreateblogjs(request):
-    return render(request, 'apicreateblogjs.html', )
+def ApiCreateblogjs(request):
+    return render(request, 'apicreateblogjs.html',)
+
+def ApiDetailblogjs(request, pk):
+
+    post_ditail = Mypost.objects.all().filter(pk=pk)
+
+    return render(request, 'apidetailblogjs.html',{'post_ditail': post_ditail[0]})

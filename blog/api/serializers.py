@@ -8,7 +8,7 @@ from blog.models import Mypost, Comment
 class PostSerializer(serializers.ModelSerializer):
         class Meta:
                 model = Mypost
-                fields = ('author', 'id', 'title', 'text', 'publish_date', 'done')
+                fields = ('author', 'id', 'title', 'text', 'publish_date', 'done', 'photo')
                 ordering = ('-publish_date',)
                 # done = serializers.BooleanField(required=False, default=False)
                 done = serializers.BooleanField(required=True)
@@ -20,11 +20,3 @@ class CommentSerializer(serializers.ModelSerializer):
                 fields = ('blogpost', 'comment', 'created',)
                 ordering = ('-created',)
 
-#                 #def blogpost(self, instance):
-#                 #        return reverse('blog-post', kwargs={'id':instance.blogpost.id})
-#
-#
-# """ def comments(self, instance):
-# return reverse('comments', kwargs={'blogpost':instance.id})
-# def blogpost(self, instance):
-# return reverse('blog-post', kwargs={'id':instance.blogpost.id})"""

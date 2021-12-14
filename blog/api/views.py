@@ -3,6 +3,7 @@ from django.db.models import Q
 from django.http import request
 from django.shortcuts import render, get_object_or_404
 from rest_framework import generics, status
+from rest_framework.parsers import FileUploadParser, FormParser, MultiPartParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -10,6 +11,7 @@ from blog.models import Mypost, Comment
 from blog.api.serializers import PostSerializer, CommentSerializer
 
 class PostListView(APIView):
+    # parser_classes = (FormParser, MultiPartParser)
 
     def get(self, request):
 
@@ -24,6 +26,7 @@ class PostListView(APIView):
         # добавляем пост
         serializer = PostSerializer(data=request.data)
         if serializer.is_valid():
+            # print(serializer.errors)
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -38,6 +41,7 @@ class PostListUrlView(APIView):
     # выводим один пост по айди
     def get(self, request, pk):
         posts = Mypost.objects.filter(id=pk)
+
         serializer = PostSerializer(posts, many=True)
         return Response(serializer.data)
 
