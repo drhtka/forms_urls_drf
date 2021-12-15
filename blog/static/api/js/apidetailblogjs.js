@@ -4,27 +4,26 @@ var api_one = '<div></div>'
 
 // var link = "{% url 'blog:ditail' all_posts[i].id %}";
 var linkk = "/blog/ditail/"
-var link = "/api/posts/"
+var link = "http://127.0.0.1:8991/api/posts/"
 var media = '/media/'
 // "<a href='" + link + "'>" + all_posts[i].title + "</a>"
 
 function postsApiDetail(data){
 
     var one_post = data[0]
-
+    var newImage = document.createElement('img')
 
         api_one += '<div class="d-flex justify-content-start">' +
-                        '<div class=" m-4 p-4">' +
+                        '<div class=" m-4 p-4">' + '<span>JS</span>' +
                         '<img class="main_img" src="' + one_post.photo + '"/>' + '</div>' +
-
                         '<div class="d-flex flex-column m-4 p-4">' +
                                 '<div>' + '<span>Автор:</span>' + one_post.author + '</div>' +
                                 '<div>' + '<span>Тайтл:</span>' + one_post.title + '</div>' +
                                 '<div class="blog_id">' + '<span>Номер поста: </span>' + one_post.id + '</div>' +
                                 '<div>' + '<span>Текст: </span>' + one_post.text + '</div>' +
                                 '<div>' + '<span>Дата: </span>' + one_post.publish_date + '</div>' +
-            '<a class="text-decoration-none" href=' + link + one_post.id + '>' + '<span">Редактировать </span>' + '</a>' +
-            '<a class="text-decoration-none" href=' + link + one_post.id + '>' + '<span>Удалить </span>' + '</a>' +
+            '<a class="text-decoration-none btn border-2 border-success mb-2 mt-1" onclick=ApiGetEdit(' + one_post.id + ')>' + '<span">Редактировать </span>' + '</a>' +
+            '<a class="text-decoration-none btn border-2 border-danger" href=' + link + one_post.id + '>' + '<span>Удалить </span>' + '</a>' +
                 '</div>' +
                 '</div>'
 
@@ -57,6 +56,8 @@ function postsApiDetail(data){
 
 
 window.onload = postsApiDetail
+
+    //postsApiDetail
 //window.onload = postsApii
     //fetch('/api/posts/')
     // Handle success
@@ -65,15 +66,24 @@ window.onload = postsApiDetail
     // .then(data => console.log(data))
     // console.log('data')
 
+// var params1 = (new URL(document.location)).searchParams; // берём данные из гет запроса
+//document.URL
 
+const url = document.URL.split('/');
+let pk = url[5];
 
-    fetch('http://127.0.0.1:8991/api/posts/8')
+// var categ_index = params1.get("categ_index")
+
+    fetch('http://127.0.0.1:8991/api/posts/' + pk)
         // Handle success
         .then(response => response.json())  // convert to json
         .then(data => this.postsApiDetail(data))
         //then(data => console.log(data))
 
-
+function ApiGetEdit(id){
+        pk = id
+    location.href = '/blog/apieditblogjs/' + pk
+}
 
 
 

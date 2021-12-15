@@ -80,7 +80,6 @@ def PagePostApi(request):
 def ApiBlogjs(request):
     return render(request, 'apiblogjs.html', )
 
-
 def ApiCreateblogjs(request):
     return render(request, 'apicreateblogjs.html',)
 
@@ -89,3 +88,9 @@ def ApiDetailblogjs(request, pk):
     post_ditail = Mypost.objects.all().filter(pk=pk)
 
     return render(request, 'apidetailblogjs.html',{'post_ditail': post_ditail[0]})
+
+def ApiEditblogjs(request, pk):
+
+    post_ditail = Mypost.objects.all().filter(pk=pk)
+
+    return render(request, 'apieditblogjs.html',{'post_ditail': post_ditail[0]})

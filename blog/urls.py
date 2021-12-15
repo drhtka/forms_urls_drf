@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-from blog.views import BlogList, PostDitail, CreatePost, EditPost, DelPost, PagePostApi, ApiBlogjs, ApiCreateblogjs, ApiDetailblogjs
+from blog.views import BlogList, PostDitail, CreatePost, \
+    EditPost, DelPost, PagePostApi, ApiBlogjs, ApiCreateblogjs, ApiDetailblogjs, ApiEditblogjs
 from django.urls import path, re_path, include
 app_name = 'blog'
 
@@ -15,6 +16,7 @@ urlpatterns = [
     path('apiblogjs/', ApiBlogjs, name='apiblogjs'),
     path('apicreateblogjs/', ApiCreateblogjs, name='apicreateblogjs'),
     path('apidetailblogjs/<int:pk>', ApiDetailblogjs, name='apidetailblogjs'),
+    path('apieditblogjs/<int:pk>', ApiEditblogjs, name='apieditblogjs'),
 
     # url(r'^myac/new/$', 'myforact.views.myac_new', name='myac_new'),
     # url(r'^myac/(?P<pk>[0-9]+)/$', 'myforact.views.myac_detal', name='myac_detal'),

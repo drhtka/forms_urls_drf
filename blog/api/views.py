@@ -14,7 +14,6 @@ class PostListView(APIView):
     # parser_classes = (FormParser, MultiPartParser)
 
     def get(self, request):
-
         # выводим все посты  апи
         items = Mypost.objects.all()
         serializer = PostSerializer(items, many=True)
@@ -39,6 +38,7 @@ class CommentDetailView(generics.RetrieveAPIView):
 class PostListUrlView(APIView):
     #queryset = Post.objects.filter(title='first news')
     # выводим один пост по айди
+
     def get(self, request, pk):
         posts = Mypost.objects.filter(id=pk)
 
@@ -46,6 +46,8 @@ class PostListUrlView(APIView):
         return Response(serializer.data)
 
     def put(self, request, pk):
+        print('put')
+        print(request.POST)
         snippet = get_object_or_404(Mypost, pk=pk)
         serializer = PostSerializer(snippet, data=request.data)
         if serializer.is_valid():
