@@ -1,7 +1,8 @@
-# Shop
+# BLOG
  - Django==2.2
-- DRF
-
+- DRF 
+- JS
+- AJAX(FETCH)
 
 **Install**
 - pip install requirements.txt
@@ -11,4 +12,4 @@
      <div>- Удалить</div>
     <div>- Отредактировать</div>
     <div>- Добавить</div>
-Из админки, шаблона и API
+Из админки, шаблона и JS API
