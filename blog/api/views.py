@@ -48,12 +48,27 @@ class PostListUrlView(APIView):
     def put(self, request, pk):
         print('put')
         print(request.POST)
+        print(request.POST['photo'])
+        #  photo_blog/2021/12/15/069.jpg
         snippet = get_object_or_404(Mypost, pk=pk)
         serializer = PostSerializer(snippet, data=request.data)
+        print('serializer')
+        print(serializer)
         if serializer.is_valid():
+            print("1")
+            # if request.POST['photo'] != ['undefined']:
+            # print(serializer.errors)
             serializer.save()
             return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            my_photo = Mypost.objects.filter(pk=pk).values('photo')
+            print('my_photo')
+            print(my_photo[0]['photo'])
+            print("2")
+            Mypost.objects.filter(pk=pk).update(title=request.POST['title'], text=request.POST['text']) #, photo=request.POST['photo']
+            return Response('ok')
+            #return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
     def delete(self, request, pk):
         snippet = get_object_or_404(Mypost, pk=pk)

@@ -22,11 +22,13 @@ body
 
     padding: 15px;
     font-weight: bolder;
+
 }
 
 .child-row{
     padding: 10px;
     padding-left: 10%;
+
 }
 
 .myPosts{
@@ -37,4 +39,8 @@ body
 .main_img{
     width: 176px;
     height: 185px;
+}
+
+.row-blog-list{
+    margin-bottom: 100px;
 }

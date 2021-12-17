@@ -57,9 +57,23 @@
                     "X-CSRFToken": csrftoken,
                 },
                 body: formData
+            }).then(function (response) {
+                {#console.log('response.json()')#}
+                if (response){
+                   location.href = 'http://127.0.0.1:8991/blog/apidetailblogjs/' + pk
+                }
+
             })
 
-                location.href = 'http://127.0.0.1:8991/blog/apidetailblogjs/' + pk
+
+
+
+                /*.then({
+
+                data=>location.href = 'http://127.0.0.1:8991/blog/apidetailblogjs/' + pk
+            })*/
+
+
                 //location.href='/blog/apieditblogjs/' + pk
 
         }
