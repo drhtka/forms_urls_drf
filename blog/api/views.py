@@ -35,6 +35,7 @@ class CommentDetailView(generics.RetrieveAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
 
+
 class PostListUrlView(APIView):
     #queryset = Post.objects.filter(title='first news')
     # выводим один пост по айди
@@ -48,12 +49,15 @@ class PostListUrlView(APIView):
     def put(self, request, pk):
         print('put')
         print(request.POST)
-        print(request.POST['photo'])
+        photo =request.POST['photo']
+        title =request.POST['title']
+        text =request.POST['text']
+
         #  photo_blog/2021/12/15/069.jpg
         snippet = get_object_or_404(Mypost, pk=pk)
         serializer = PostSerializer(snippet, data=request.data)
-        print('serializer')
-        print(serializer)
+        # print('serializer')
+        # print(serializer)
         if serializer.is_valid():
             print("1")
             # if request.POST['photo'] != ['undefined']:
@@ -65,8 +69,8 @@ class PostListUrlView(APIView):
             print('my_photo')
             print(my_photo[0]['photo'])
             print("2")
-            Mypost.objects.filter(pk=pk).update(title=request.POST['title'], text=request.POST['text']) #, photo=request.POST['photo']
-            return Response('ok')
+            Mypost.objects.filter(pk=pk).update(title=request.POST['title'], text=request.POST['text'], photo=my_photo[0]['photo']) #, photo=request.POST['photo']
+            return Response(serializer.data)
             #return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -76,4 +80,10 @@ class PostListUrlView(APIView):
         data = serializer.data
         snippet.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+
+# class PostListUrlView(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = Mypost.objects.all()
+#     serializer_class = CommentSerializer
 

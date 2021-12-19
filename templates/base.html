@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{% static "blog/blog.css" %}" type="text/css">
 {#    <link rel="stylesheet" href="{% static "todo/css/style.css" %}" type="text/css">#}
 
-    <title>Document</title>
+    <title> {% block title %}Document{% endblock title %}</title>
     <style>
         body {
             margin: 0;
@@ -54,15 +54,40 @@
 </div>
 <div class="header d-flex justify-content-center text-decoration-none" id="myHeader">
 {#    <div class="d-flex justify-content-between text-decoration-none"></div>#}
-    <div class="p-4"><h3><a class="text-decoration-none" href="{% url 'blog:blogs_list' %}"><span class="text-white">Главная</span></a></h3></div>
-        <div class="p-4"><h3><a  class="text-decoration-none" class="text-decoration-none "  href="{% url 'blog:create' %}"><span class="text-white">Добавить пост</span> </a></h3></div>
-    <div class="p-4"><h3><a class="text-decoration-none"  href="{% url 'blog:apiblogjs' %}"><span class="text-white">JS</span></a></h3></div>
 
-    <div class="p-4"><h3><a  class="text-decoration-none" class="text-decoration-none"  href="{% url 'blog:apicreateblogjs' %}"><span class="text-white">Добавить пост JS</span> </a></h3></div>
-        <div class="p-4"><h3><a class="text-decoration-none" href="{% url 'api_post_list' %}"><span class="text-white">Все пост апи</span> </a></h3></div>
-        <div class="p-4"><h3><a class="text-decoration-none" href="{% url 'blog:pagepostapi' %}"><span class="text-white">Добавить пост формы Django</span> </a></h3></div>
-{#    <h2>My Header</h2>#}
+    <div class="p-4"><h3><a class="text-decoration-none" href="{% url 'index' %}"><span class="text-white">Главная</span></a></h3></div>
+
+    <div class="p-3 dropdown">
+        <button onclick="myFunction()" class="dropbtn">Django</button>
+        <div id="myDropdown" class="dropdown-content">
+        <a class="text-decoration-none" href="{% url 'blog:blogs_list' %}"><span class="text-white">Django</span></a>
+        <a class="text-decoration-none" href="{% url 'blog:create' %}"><span class="text-white">Добавить пост</span></a>
+        </div>
+    </div>
+
+
+    <div class="p-3 dropdown">
+        <button onclick="myFunctionJS()" class="dropbtn">JS</button>
+        <div id="myDropdownJS" class="dropdown-content">
+            <a class="text-decoration-none"  href="{% url 'blog:apiblogjs' %}"><span class="text-white">JS</span></a>
+            <a  class="text-decoration-none" href="{% url 'blog:apicreateblogjs' %}"><span class="text-white">Добавить пост</span> </a>
+        </div>
+    </div>
+
+
+    <div class="p-3 dropdown">
+    <button onclick="myFunctionReactJS()" class="dropbtn">ReactJS</button>
+    <div id="myDropdownReactJS" class="dropdown-content">
+        <a class="text-decoration-none"  href="{% url 'blog:apiblogjs' %}"><span class="text-white">ReactJS</span></a>
+        <a  class="text-decoration-none" href="{% url 'blog:apicreateblogjs' %}"><span class="text-white">Добавить пост</span> </a>
+    </div>
 </div>
+
+            <div class="p-4"><h3><a class="text-decoration-none" href="{% url 'api_post_list' %}"><span class="text-white">Все посты апи</span> </a></h3></div>
+
+</div>
+
+
 
 <div class="container">
 {% block header %}
@@ -110,7 +135,72 @@
                 header.classList.remove("sticky");
             }
         }
+
+
     </script>
+
+        <script>
+
+        /*https://www.w3schools.com/howto/howto_js_dropdown.asp
+        * https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_js_dropdown*/
+            /* When the user clicks on the button,
+            toggle between hiding and showing the dropdown content */
+            function myFunction() {
+                document.getElementById("myDropdown").classList.toggle("show");
+            }
+
+            // Close the dropdown if the user clicks outside of it
+            window.onclick = function(event) {
+                if (!event.target.matches('.dropbtn')) {
+                    var dropdowns = document.getElementsByClassName("dropdown-content");
+                    var i;
+                    for (i = 0; i < dropdowns.length; i++) {
+                        var openDropdown = dropdowns[i];
+                        if (openDropdown.classList.contains('show')) {
+                            openDropdown.classList.remove('show');
+                        }
+                    }
+                }
+            }
+
+            /* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+            function myFunctionJS() {
+                document.getElementById("myDropdownJS").classList.toggle("show");
+            }
+
+            // Close the dropdown if the user clicks outside of it
+            window.onclick = function(event) {
+                if (!event.target.matches('.dropbtn')) {
+                    var dropdowns = document.getElementsByClassName("dropdown-content");
+                    var i;
+                    for (i = 0; i < dropdowns.length; i++) {
+                        var openDropdown = dropdowns[i];
+                        if (openDropdown.classList.contains('show')) {
+                            openDropdown.classList.remove('show');
+                        }
+                    }
+                }
+            }
+
+        function myFunctionReactJS() {
+            document.getElementById("myDropdownReactJS").classList.toggle("show");
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+        </script>
     {% endblock footer %}
 </div>
 </body>

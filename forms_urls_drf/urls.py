@@ -20,10 +20,12 @@ from django.conf.urls.static import static
 # from blog import views ToDoDetailView
 import blog
 from blog import apps
+from blog.views import index
 from forms_urls_drf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    re_path(r'^$', index, name='index'),
     # re_path(r'^blog/', include(('blog.urls', 'blog'), namespace='blog')),
     path('blog/', include('blog.urls'), name='blog'),
     path("api/posts/",

@@ -5,6 +5,15 @@ from blog.models import Mypost
 from blog.forms import CreateForms
 # Create your views here.
 
+
+def index(request):
+    all_posts = Mypost.objects.all()
+    # print('all_posts_all')
+    # print(all_posts)
+    context = {'all_posts': all_posts}
+    return render(request, 'index.html', context)
+
+
 def BlogList(request):
     all_posts = Mypost.objects.all()
     # print('all_posts_all')
@@ -64,18 +73,18 @@ def DelPost(request, pk):
         form = CreateForms(instance=del_post)
     return render(request, 'delete.html', {'form': form})
 
-def PagePostApi(request):
-
-    if request.method == 'POST':
-        form = CreateForms(request.POST)
-        if form.is_valid():
-            create_post = form.save(commit=False)
-            create_post.author = request.user
-            create_post.save()
-            return redirect('blog:ditail', pk=create_post.pk)
-    else:
-        form = CreateForms
-    return render(request, 'post_api.html', {'form': form} )
+# def PagePostApi(request):
+#
+#     if request.method == 'POST':
+#         form = CreateForms(request.POST)
+#         if form.is_valid():
+#             create_post = form.save(commit=False)
+#             create_post.author = request.user
+#             create_post.save()
+#             return redirect('blog:ditail', pk=create_post.pk)
+#     else:
+#         form = CreateForms
+#     return render(request, 'index.html', {'form': form} )
 
 def ApiBlogjs(request):
     return render(request, 'apiblogjs.html', )
