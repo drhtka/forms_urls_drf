@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.db.models import Q
-from django.http import request
+from django.http import request, JsonResponse
 from django.shortcuts import render, get_object_or_404
 from rest_framework import generics, status
 from rest_framework.parsers import FileUploadParser, FormParser, MultiPartParser
@@ -69,8 +69,11 @@ class PostListUrlView(APIView):
             print('my_photo')
             print(my_photo[0]['photo'])
             print("2")
-            Mypost.objects.filter(pk=pk).update(title=request.POST['title'], text=request.POST['text'], photo=my_photo[0]['photo']) #, photo=request.POST['photo']
-            return Response(serializer.data)
+            if title == '' or text == '':
+                return JsonResponse({'res': '0'})
+            else:
+                Mypost.objects.filter(pk=pk).update(title=request.POST['title'], text=request.POST['text'], photo=my_photo[0]['photo']) #, photo=request.POST['photo']
+                return Response(serializer.data)
             #return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 

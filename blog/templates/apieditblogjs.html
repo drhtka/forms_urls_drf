@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
+
+{% block title %}edit JS{% endblock title %}
 {% block content %}
     edit JS
 
@@ -19,7 +21,7 @@
                         Введите текст
                     </div>
                     <input class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-12 mt-2 mb-2" type="file" name="publish_photo"><a href="{{ MEDIA_URL }}{{ post_ditail.photo }}">{{ post_ditail.photo }}</a>
-                    <input class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-12 mt-2 mb-2" type="button" onclick="editeGist({{ post_ditail.pk }})" value="Сохранить запись">
+                    <input class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-12 mt-2 mb-2" type="submit" onclick="handleFiles({{ post_ditail.pk }})" value="Сохранить запись">
                 </div>
             </div>
         </form>
@@ -42,8 +44,9 @@
             return cookieValue;
         }
 
-        function editeGist (idpost){
+        async function editeGist (idpost){
 
+            alert(idpost)
             var publish_author = 'default'
             var publish_title = document.getElementsByName('publish_title')[0].value
             var publish_text = document.getElementsByName('publish_text')[0].value
@@ -58,31 +61,54 @@
             formData.append('photo', fileField.files[0]);
             console.log('formData')
             console.log(formData)
-            fetch("http://127.0.0.1:8991/api/posts/" + pk, {
+            /*fetch("http://127.0.0.1:8991/api/posts/" + pk, {
                 method: "put",
                 credentials: "same-origin",
                 headers: {
                     "X-CSRFToken": csrftoken,
                 },
                 body: formData
-            }).then(function (response) {
+            })*/
+            try {
+                const response = await fetch("http://127.0.0.1:8991/api/posts/" + pk, {
+                    method: 'put',
+                    credentials: "same-origin",
+                    headers: {
+                        "X-CSRFToken": csrftoken,
+                    },
+                    body: formData
+                });
+                const result = await response.json();
+                console.log('Успех:', JSON.stringify(result));
+                if (result.res == '0'){
+                    console.log('введены не все данные')
+                    console.log(result)
+
+                }else{
+                    location.href = 'http://127.0.0.1:8991/blog/apidetailblogjs/' + pk
+                }
+            } catch (error) {
+                console.error('Ошибка:', error);
+            }
+            /*.then(function (response) {
                 {#console.log('response.json()')#}
                 if (response){
-                   location.href = 'http://127.0.0.1:8991/blog/apidetailblogjs/' + pk
+                    console.log('response')
+                    console.log(response.text())
+                   {#location.href = 'http://127.0.0.1:8991/blog/apidetailblogjs/' + pk#}
                 }
-
-            })
-
+            })*/
+            {#.then(data=>console.log(data.json()))#}
+            {#.then(data1=>console.log(data1))#}
 
         }
 
         // Пример стартового JavaScript для отключения отправки форм при наличии недопустимых полей
-        (function () {
+        function handleFiles(idpost) {
             'use strict'
 
             // Получите все формы, к которым мы хотим применить пользовательские стили проверки Bootstrap   handleFiles()
             var forms = document.querySelectorAll('.needs-validation')
-
             // Зацикливайтесь на них и предотвращайте отправку
             Array.prototype.slice.call(forms)
                 .forEach(function (form) {
@@ -92,8 +118,16 @@
                             event.stopPropagation()
                         }
                         form.classList.add('was-validated')
+                        console.log('idpost')
+                        console.log(idpost)
+                        editeGist(idpost)
+
                     }, false)
                 })
-        })()
+        }
+
+        function  handleFilesT(idpost){
+            alert(idpost)
+        }
     </script>
 {% endblock content %}
