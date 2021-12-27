@@ -9,18 +9,18 @@
        <div class=" d-flex justify-content-center">
        <div class=" d-flex flex-column m-5">
            <label for="validationCustom03" class="form-label">Название</label>
-        <input class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-12  mt-2 mb-2" type="text" name="publish_title" id="validationTooltip01" aria-describedby="inputGroupPrepend" required="" onkeyup="chekValid(this)">
+        <input class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-12  mt-2 mb-2 form-control" type="text" name="publish_title" id="validationTooltip01" aria-describedby="inputGroupPrepend" required="" onkeyup="chekEmptyTytle(this)">
            <div class="invalid-feedback" id="invalid-feedback-title">
                Введите название
            </div>
            <label for="validationCustom02" class="form-label mt-2">Подробно</label>
-           <textarea type="text" name="publish_text" id="validationTextarea" class="form-control" required=""></textarea>
+           <textarea type="text" name="publish_text" id="validationTextarea" class="form-control" required="" onkeyup="chekEmptyText(this)"></textarea>
            <div class="invalid-feedback" id="invalid-feedback-text">
                Введите текст
            </div>
            <label for="validationCustom03" class="form-label">Фото</label>
         <input class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-12 mt-2 mb-2 form-control publish_photo" type="file" name="publish_photo" id="validationTooltip02" aria-label="file example" required="">
-           <div class=" invalid-feedback-file file-pad" id="invalid-feedback-file">Выберете фото</div>
+           <div class="invalid-feedback-file file-pad" id="invalid-feedback-file">Выберете фото</div>
            <div class="invalid-feedback" id="invalid-feedback-file-format">Не верный формат файла</div>
         <input class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-12 mt-2 mb-2" type="button" onclick="createGist()" value="Сохранить запись">
        </div>
@@ -28,22 +28,36 @@
    </form>
     <script>
 
-        function chekValid(my_this){
+        function chekEmptyTytle(my_this){
             if (my_this.value.length == 0){
                 document.getElementsByName('publish_title')[0].style.border = '1px solid red'
+                document.getElementById('invalid-feedback-title').style.display = 'block'
             }else {
                 document.getElementsByName('publish_title')[0].style.border = '1px solid #28a745'
+                document.getElementById('invalid-feedback-title').style.display = 'none'
+
+            }
+        }
+
+        function chekEmptyText(my_this){
+            if (my_this.value.length == 0){
+            document.getElementsByName('publish_text')[0].style.border = '1px solid red'
+            document.getElementById('invalid-feedback-text').style.display = 'block'
+        }else {
+            document.getElementsByName('publish_text')[0].style.border = '1px solid #28a745'
+            document.getElementById('invalid-feedback-text').style.display = 'none'
             }
         }
 
         document.getElementById('validationTooltip02').addEventListener('change', function(){
             if( this.value ){
-                console.log( "Оппа, выбрали файл!" );
-                console.log( this.value );
+                {#console.log( "Оппа, выбрали файл!" );#}
+                {#console.log( this.value );#}
                 document.getElementsByName('publish_photo')[0].style.border = '1px solid #28a745'
+                document.getElementById('invalid-feedback-file').style.display = 'none'
             } else { // Если после выбранного тыкнули еще раз, но дальше cancel
                 document.getElementsByName('publish_photo')[0].style.border = '1px solid red'
-                console.log( "Файл не выбран" );
+                {#console.log( "Файл не выбран" );#}
             }
         });
 
@@ -84,7 +98,27 @@
 
 
             formData.append('author', publish_author);
+
+
+
+            if (publish_title != '' && publish_text == '' && fileField.files[0] != undefined){
+                alert('')
+                document.getElementsByName('publish_title')[0].style.border = '1px solid #28a745'
+                document.getElementById('invalid-feedback-title').style.display = 'none'
+
+                document.getElementsByName('publish_text')[0].style.border = '1px solid red'
+                document.getElementById("validationTooltip01").required = false
+                document.getElementById("validationTextarea").required = false
+                {#console.log(document.getElementById("customFileLang").required)#}
+                document.getElementById('invalid-feedback-text').style.display = 'block'
+
+                document.getElementsByName('publish_photo')[0].style.border = '1px solid #28a745'
+                document.getElementById('invalid-feedback-file').style.display = 'none'
+                event.preventDefault()
+            }
+
             if (publish_title == '' && publish_text == '' && fileField.files[0] == undefined){
+                alert('')
                 document.getElementsByName('publish_title')[0].style.border = '1px solid red'
                 document.getElementById("validationTooltip01").required = true
                 {#console.log(document.getElementById("customFileLang").required)#}
@@ -101,7 +135,20 @@
                 document.getElementById('invalid-feedback-file').style.display = 'block'
                 event.preventDefault()
             }
+
+
+
+            /*if (fileField.files[0] == undefined){
+                alert('фото одно пустой')
+                document.getElementsByName('publish_photo')[0].style.border = '1px solid red'
+                document.getElementById("validationTooltip02").required = false
+                {#console.log(document.getElementById("customFileLang").required)#}
+                document.getElementById('invalid-feedback-file').style.display = 'block'
+                event.preventDefault()
+            }*/
+
             if (publish_title != '' && publish_text == ''){
+                {#alert('2 пареметра ттатд заполенн')#}
                 document.getElementsByName('publish_title')[0].style.border = '1px solid #28a745'
                 document.getElementById('invalid-feedback-title').style.display = 'none'
                 document.getElementsByName('publish_text')[0].style.border = '1px solid red'
@@ -112,6 +159,7 @@
                 event.preventDefault()
             }
             if (publish_text != '' && publish_title == ''){
+                {#alert('2 пареметра техт заполенн')#}
                 document.getElementsByName('publish_text')[0].style.border = '1px solid #28a745'
                 document.getElementById('invalid-feedback-text').style.display = 'none'
 
@@ -122,7 +170,9 @@
                 document.getElementById('invalid-feedback-title').style.display = 'block'
                 event.preventDefault()
             }
+
             if (publish_title != '' && publish_text != '' && fileField.files[0] == undefined){
+                {#alert('тайтл и текст заполнен')#}
                 document.getElementsByName('publish_title')[0].style.border = '1px solid #28a745'
                 document.getElementById("validationTooltip01").required = false
                 {#console.log(document.getElementById("customFileLang").required)#}
@@ -139,15 +189,8 @@
                 event.preventDefault()
             }
 
-            if (fileField.files[0] == undefined){
-                document.getElementsByName('publish_photo')[0].style.border = '1px solid red'
-                document.getElementById("validationTooltip02").required = false
-                {#console.log(document.getElementById("customFileLang").required)#}
-                document.getElementById('invalid-feedback-file').style.display = 'block'
-                event.preventDefault()
-            }
-
             if (publish_title == '' && publish_text == '' && fileField.files[0] != undefined){
+                {#alert('фото заполнено')#}
                 document.getElementsByName('publish_title')[0].style.border = '1px solid red'
                 document.getElementById("validationTooltip01").required = false
                 {#console.log(document.getElementById("customFileLang").required)#}
@@ -161,7 +204,39 @@
                 event.preventDefault()
             }
 
+            if (publish_title!= '' && publish_text  == '' && fileField.files[0] == undefined){
+                {#alert('тайтл заполнен')#}
+                document.getElementsByName('publish_title')[0].style.border ='1px solid #28a745'
+                {#console.log(document.getElementById("customFileLang").required)#}
+                document.getElementById('invalid-feedback-title').style.display = 'none'
+
+                document.getElementsByName('publish_text')[0].style.border =  '1px solid red'
+                document.getElementById('invalid-feedback-text').style.display = 'block'
+
+                document.getElementsByName('publish_photo')[0].style.border = '1px solid red'
+                document.getElementById('invalid-feedback-file').style.display = 'block'
+                event.preventDefault()
+            }
+
+            if (publish_text != '' && publish_title == '' && fileField.files[0] != undefined){
+                {#alert('текст заполнен')#}
+                document.getElementsByName('publish_text')[0].style.border = '1px solid #28a745'
+                document.getElementById('invalid-feedback-text').style.display = 'none'
+
+                document.getElementsByName('publish_title')[0].style.border = '1px solid red'
+                document.getElementById("validationTooltip01").required = false
+                document.getElementById("validationTextarea").required = true
+                {#console.log(document.getElementById("customFileLang").required)#}
+                document.getElementById('invalid-feedback-title').style.display = 'block'
+
+                document.getElementById('invalid-feedback-text').style.display = 'block'
+                document.getElementsByName('publish_photo')[0].style.border = '1px solid #28a745'
+                document.getElementById('invalid-feedback-file').style.display = 'none'
+                event.preventDefault()
+            }
+
             if (publish_title != '' && publish_text != '' && fileField.files[0] != undefined){
+                {#alert('все заполнено')#}
                 document.getElementsByName('publish_title')[0].style.border = '1px solid #28a745'
                 document.getElementById("validationTooltip01").required = false
                 {#console.log(document.getElementById("customFileLang").required)#}
@@ -176,6 +251,7 @@
                 formData.append('text', publish_text);
                 formData.append('photo', fileField.files[0]);
             }
+
 
             /*if (publish_text == ''){
                 document.getElementsByName('publish_text')[0].style.border = '1px solid red'
