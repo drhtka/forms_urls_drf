@@ -86,3 +86,26 @@ body
 /*.dropdown a:hover {background-color: #ddd;}*/
 
 .show {display: block;}
+
+#invalid-feedback-title{
+    display: none;
+    width: 100%;
+    margin-top: .25rem;
+    font-size: 80%;
+    color: #dc3545;
+}
+#invalid-feedback-text{
+    display: none;
+    width: 100%;
+    margin-top: .25rem;
+    font-size: 80%;
+    color: #dc3545;
+}
+
+#invalid-feedback-file{
+    display: none;
+    width: 100%;
+    margin-top: .25rem;
+    font-size: 80%;
+    color: #dc3545;
+}

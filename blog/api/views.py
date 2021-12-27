@@ -13,6 +13,7 @@ from blog.api.serializers import PostSerializer, CommentSerializer
 class PostListView(APIView):
     # parser_classes = (FormParser, MultiPartParser)
 
+
     def get(self, request):
         # выводим все посты  апи
         items = Mypost.objects.all()
@@ -25,8 +26,9 @@ class PostListView(APIView):
         # добавляем пост
         serializer = PostSerializer(data=request.data)
         if serializer.is_valid():
-            # print(serializer.errors)
+            print(serializer.errors)
             serializer.save()
+            print('save')
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

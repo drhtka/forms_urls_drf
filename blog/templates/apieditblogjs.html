@@ -12,7 +12,7 @@
                 <div class=" d-flex flex-column m-5">
                     <label for="validationCustom03" class="form-label">Название</label>
                     <input class="form-control col-6 col-sm-5 col-md-4 col-lg-3 col-xl-12  mt-2 mb-2" type="text" name="publish_title" value="{{ post_ditail.title }}"  id="validationTooltip01" aria-describedby="inputGroupPrepend"  required>
-                    <div class="invalid-feedback">
+                    <div class="invalid-feedback invalid-feedback-file">
                         Введите название
                     </div>
                     <label for="validationCustom02" class="form-label mt-2">Подробно</label>
@@ -21,7 +21,7 @@
                         Введите текст
                     </div>
                     <input class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-12 mt-2 mb-2" type="file" name="publish_photo"><a href="{{ MEDIA_URL }}{{ post_ditail.photo }}">{{ post_ditail.photo }}</a>
-                    <input class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-12 mt-2 mb-2" type="submit" onclick="handleFiles({{ post_ditail.pk }})" value="Сохранить запись">
+                    <input class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-12 mt-2 mb-2" type="button" onclick="handleFiles({{ post_ditail.pk }})" value="Сохранить запись">
                 </div>
             </div>
         </form>
@@ -46,7 +46,7 @@
 
         async function editeGist (idpost){
 
-            alert(idpost)
+            //alert(idpost)
             var publish_author = 'default'
             var publish_title = document.getElementsByName('publish_title')[0].value
             var publish_text = document.getElementsByName('publish_text')[0].value
@@ -54,7 +54,8 @@
             let csrftoken = getCookie('csrftoken');
             const formData = new FormData();
             const fileField = document.querySelector('input[type="file"]');
-
+            console.log('photo')
+            console.log(fileField.files[0])
             formData.append('author', publish_author);
             formData.append('title', publish_title);
             formData.append('text', publish_text);
@@ -71,9 +72,10 @@
             })*/
             try {
                 const response = await fetch("http://127.0.0.1:8991/api/posts/" + pk, {
-                    method: 'put',
+                    method: 'PUT',
                     credentials: "same-origin",
                     headers: {
+                        'Content-type': 'application/json; charset=UTF-8',
                         "X-CSRFToken": csrftoken,
                     },
                     body: formData
@@ -83,7 +85,6 @@
                 if (result.res == '0'){
                     console.log('введены не все данные')
                     console.log(result)
-
                 }else{
                     location.href = 'http://127.0.0.1:8991/blog/apidetailblogjs/' + pk
                 }
@@ -100,13 +101,11 @@
             })*/
             {#.then(data=>console.log(data.json()))#}
             {#.then(data1=>console.log(data1))#}
-
         }
 
         // Пример стартового JavaScript для отключения отправки форм при наличии недопустимых полей
         function handleFiles(idpost) {
             'use strict'
-
             // Получите все формы, к которым мы хотим применить пользовательские стили проверки Bootstrap   handleFiles()
             var forms = document.querySelectorAll('.needs-validation')
             // Зацикливайтесь на них и предотвращайте отправку
@@ -121,13 +120,10 @@
                         console.log('idpost')
                         console.log(idpost)
                         editeGist(idpost)
-
                     }, false)
                 })
         }
 
-        function  handleFilesT(idpost){
-            alert(idpost)
-        }
+
     </script>
 {% endblock content %}

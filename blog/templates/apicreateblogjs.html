@@ -3,17 +3,49 @@
 {% block title %}create JS{% endblock title %}
 {% block content %}
 
-   <form enctype="multipart/form-data">
+
+   <form enctype="multipart/form-data" class="needs-validation" novalidate->
+{#       {% csrf_token %}#}
        <div class=" d-flex justify-content-center">
        <div class=" d-flex flex-column m-5">
-        <input class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-12  mt-2 mb-2" type="text" name="publish_title">
-           <textarea type="text" name="publish_text"></textarea>
-        <input class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-12 mt-2 mb-2" type="file" name="publish_photo">
+           <label for="validationCustom03" class="form-label">Название</label>
+        <input class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-12  mt-2 mb-2" type="text" name="publish_title" id="validationTooltip01" aria-describedby="inputGroupPrepend" required="" onkeyup="chekValid(this)">
+           <div class="invalid-feedback" id="invalid-feedback-title">
+               Введите название
+           </div>
+           <label for="validationCustom02" class="form-label mt-2">Подробно</label>
+           <textarea type="text" name="publish_text" id="validationTextarea" class="form-control" required=""></textarea>
+           <div class="invalid-feedback" id="invalid-feedback-text">
+               Введите текст
+           </div>
+           <label for="validationCustom03" class="form-label">Фото</label>
+        <input class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-12 mt-2 mb-2 form-control publish_photo" type="file" name="publish_photo" id="validationTooltip02" aria-label="file example" required="">
+           <div class=" invalid-feedback-file file-pad" id="invalid-feedback-file">Выберете фото</div>
+           <div class="invalid-feedback" id="invalid-feedback-file-format">Не верный формат файла</div>
         <input class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-12 mt-2 mb-2" type="button" onclick="createGist()" value="Сохранить запись">
        </div>
        </div>
    </form>
     <script>
+
+        function chekValid(my_this){
+            if (my_this.value.length == 0){
+                document.getElementsByName('publish_title')[0].style.border = '1px solid red'
+            }else {
+                document.getElementsByName('publish_title')[0].style.border = '1px solid #28a745'
+            }
+        }
+
+        document.getElementById('validationTooltip02').addEventListener('change', function(){
+            if( this.value ){
+                console.log( "Оппа, выбрали файл!" );
+                console.log( this.value );
+                document.getElementsByName('publish_photo')[0].style.border = '1px solid #28a745'
+            } else { // Если после выбранного тыкнули еще раз, но дальше cancel
+                document.getElementsByName('publish_photo')[0].style.border = '1px solid red'
+                console.log( "Файл не выбран" );
+            }
+        });
 
         function getCookie(name) {
             var cookieValue = null;
@@ -30,29 +62,131 @@
             return cookieValue;
         }
 
-        function createGist() {
 
-            var publish_author = '1'
-            var publish_title = document.getElementsByName('publish_title')[0].value
-            var publish_text = document.getElementsByName('publish_text')[0].value
+        function createGist(event) {
 
-            /*
-            var publish_photo = document.getElementsByName('publish_photo')[0].value
-            var publish_photo_slice = publish_photo.slice(12)
-            publish_photo.split('.')
-            var myData = {
-                author:publish_author, title: publish_title, text:publish_text, photo: publish_photo_slice
-            };*/
-
+            let publish_author = '1'
+            let publish_title = document.getElementsByName('publish_title')[0].value
+            let publish_text = document.getElementsByName('publish_text')[0].value
+            let formData = new FormData();
             let csrftoken = getCookie('csrftoken');
+            let fileField = document.querySelector('input[type="file"]');
 
-            const formData = new FormData();
-            const fileField = document.querySelector('input[type="file"]');
+
+            {#let formData1 = new FormData();#}
+            {#console.log('test2')#}
+            {#console.log(publish_title, publish_text)#}
+            {##}
+            {#console.log('formData-formData1')#}
+            console.log('photo_create')
+            console.log(fileField.files[0])
+
+
 
             formData.append('author', publish_author);
-            formData.append('title', publish_title);
-            formData.append('text', publish_text);
-            formData.append('photo', fileField.files[0]);
+            if (publish_title == '' && publish_text == '' && fileField.files[0] == undefined){
+                document.getElementsByName('publish_title')[0].style.border = '1px solid red'
+                document.getElementById("validationTooltip01").required = true
+                {#console.log(document.getElementById("customFileLang").required)#}
+                document.getElementById('invalid-feedback-title').style.display = 'block'
+
+                document.getElementsByName('publish_text')[0].style.border = '1px solid red'
+                document.getElementById("validationTextarea").required = true
+                {#console.log(document.getElementById("customFileLang").required)#}
+                document.getElementById('invalid-feedback-text').style.display = 'block'
+
+                document.getElementsByName('publish_photo')[0].style.border = '1px solid red'
+                document.getElementById("validationTooltip02").required = false
+                {#console.log(document.getElementById("customFileLang").required)#}
+                document.getElementById('invalid-feedback-file').style.display = 'block'
+                event.preventDefault()
+            }
+            if (publish_title != '' && publish_text == ''){
+                document.getElementsByName('publish_title')[0].style.border = '1px solid #28a745'
+                document.getElementById('invalid-feedback-title').style.display = 'none'
+                document.getElementsByName('publish_text')[0].style.border = '1px solid red'
+                document.getElementById("validationTooltip01").required = true
+                document.getElementById("validationTextarea").required = false
+                {#console.log(document.getElementById("customFileLang").required)#}
+                document.getElementById('invalid-feedback-text').style.display = 'block'
+                event.preventDefault()
+            }
+            if (publish_text != '' && publish_title == ''){
+                document.getElementsByName('publish_text')[0].style.border = '1px solid #28a745'
+                document.getElementById('invalid-feedback-text').style.display = 'none'
+
+                document.getElementsByName('publish_title')[0].style.border = '1px solid red'
+                document.getElementById("validationTooltip01").required = false
+                document.getElementById("validationTextarea").required = true
+                {#console.log(document.getElementById("customFileLang").required)#}
+                document.getElementById('invalid-feedback-title').style.display = 'block'
+                event.preventDefault()
+            }
+            if (publish_title != '' && publish_text != '' && fileField.files[0] == undefined){
+                document.getElementsByName('publish_title')[0].style.border = '1px solid #28a745'
+                document.getElementById("validationTooltip01").required = false
+                {#console.log(document.getElementById("customFileLang").required)#}
+                document.getElementById('invalid-feedback-title').style.display = 'none'
+                document.getElementsByName('publish_text')[0].style.border = '1px solid #28a745'
+                document.getElementById("validationTextarea").required = false
+                {#console.log(document.getElementById("customFileLang").required)#}
+                document.getElementById('invalid-feedback-text').style.display = 'none'
+
+                document.getElementsByName('publish_photo')[0].style.border = '1px solid red'
+                document.getElementById("validationTooltip02").required = false
+                {#console.log(document.getElementById("customFileLang").required)#}
+                document.getElementById('invalid-feedback-file').style.display = 'block'
+                event.preventDefault()
+            }
+
+            if (fileField.files[0] == undefined){
+                document.getElementsByName('publish_photo')[0].style.border = '1px solid red'
+                document.getElementById("validationTooltip02").required = false
+                {#console.log(document.getElementById("customFileLang").required)#}
+                document.getElementById('invalid-feedback-file').style.display = 'block'
+                event.preventDefault()
+            }
+
+            if (publish_title == '' && publish_text == '' && fileField.files[0] != undefined){
+                document.getElementsByName('publish_title')[0].style.border = '1px solid red'
+                document.getElementById("validationTooltip01").required = false
+                {#console.log(document.getElementById("customFileLang").required)#}
+                document.getElementById('invalid-feedback-title').style.display = 'block'
+                document.getElementsByName('publish_text')[0].style.border = '1px solid red'
+                document.getElementById("validationTextarea").required = false
+                {#console.log(document.getElementById("customFileLang").required)#}
+                document.getElementById('invalid-feedback-text').style.display = 'block'
+                document.getElementsByName('publish_photo')[0].style.border = '1px solid #28a745'
+                document.getElementById('invalid-feedback-file').style.display = 'none'
+                event.preventDefault()
+            }
+
+            if (publish_title != '' && publish_text != '' && fileField.files[0] != undefined){
+                document.getElementsByName('publish_title')[0].style.border = '1px solid #28a745'
+                document.getElementById("validationTooltip01").required = false
+                {#console.log(document.getElementById("customFileLang").required)#}
+                document.getElementById('invalid-feedback-title').style.display = 'none'
+                document.getElementsByName('publish_text')[0].style.border = '1px solid #28a745'
+                document.getElementById("validationTextarea").required = false
+                {#console.log(document.getElementById("customFileLang").required)#}
+                document.getElementById('invalid-feedback-text').style.display = 'none'
+                document.getElementsByName('publish_photo')[0].style.border = '1px solid #28a745'
+                document.getElementById('invalid-feedback-file').style.display = 'none'
+                formData.append('title', publish_title);
+                formData.append('text', publish_text);
+                formData.append('photo', fileField.files[0]);
+            }
+
+            /*if (publish_text == ''){
+                document.getElementsByName('publish_text')[0].style.border = '1px solid red'
+                document.getElementById("validationTextarea").required = false
+                {#console.log(document.getElementById("customFileLang").required)#}
+                document.getElementById('invalid-feedback-text').style.display = 'block'
+                event.preventDefault()
+            }else{
+                formData.append('text', publish_text);
+            }*/
+
             console.log('formData')
             console.log(formData)
 
@@ -76,6 +210,71 @@
 
         }
 
+        /*
+
+                       try {
+                           const response = await fetch("http://127.0.0.1:8991/api/posts/", {
+                               method: "post",
+                               credentials: "same-origin",
+                               headers: {
+                                   "X-CSRFToken": csrftoken,
+                               },
+                               body: formData
+                           });
+                           const result = await response.json();
+                           console.log('Успех:', JSON.stringify(result));
+                           if (result.res == '0'){
+                               console.log('введены не все данные')
+                               console.log(result)
+                           }
+                           else{
+                               location.href='/blog/apiblogjs/'
+                           }
+                       } catch (error) {
+                           console.error('Ошибка:', error);
+                       }
+
+                    */
+        // Пример стартового JavaScript для отключения отправки форм при наличии недопустимых полей
+        {#function handleFiles() {#}
+        {#    'use strict'#}
+        {#    // Получите все формы, к которым мы хотим применить пользовательские стили проверки Bootstrap   handleFiles()#}
+        {#    var forms = document.querySelectorAll('.needs-validation')#}
+        {#    // Зацикливайтесь на них и предотвращайте отправку#}
+        {#    Array.prototype.slice.call(forms)#}
+        {#        .forEach(function (form) {#}
+        {#            form.addEventListener('submit', function (event) {#}
+        {#                if (!form.checkValidity()) {#}
+        {#                    event.preventDefault()#}
+        {#                    event.stopPropagation()#}
+        {#                }#}
+        {#                form.classList.add('was-validated')#}
+        {#                console.log('idpost')#}
+        {#                //console.log()#}
+        {#                createGist()#}
+        {#            }, false)#}
+        {#        })#}
+        //}
+        /*function handleFilesTest() {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        form.classList.add('was-validated')
+                        createGist()
+                    }, false)
+                })
+        }
+*/
     </script>
 
 {% endblock %}
