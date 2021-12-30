@@ -51,31 +51,36 @@ class PostListUrlView(APIView):
     def put(self, request, pk):
         print('put')
         print(request.POST)
-        photo =request.POST['photo']
+        print(request.data)
+        print('request.data.photo')
+        photo = request.data['photo']
         title =request.POST['title']
         text =request.POST['text']
-
+        print('photo')
+        print(photo)
         #  photo_blog/2021/12/15/069.jpg
         snippet = get_object_or_404(Mypost, pk=pk)
         serializer = PostSerializer(snippet, data=request.data)
-        # print('serializer')
-        # print(serializer)
+        print('serializer')
+        print(serializer)
         if serializer.is_valid():
             print("1")
             # if request.POST['photo'] != ['undefined']:
-            # print(serializer.errors)
+            #print(serializer.errors)
             serializer.save()
             return Response(serializer.data)
         else:
+            print("2")
+            print(pk)
             my_photo = Mypost.objects.filter(pk=pk).values('photo')
             print('my_photo')
             print(my_photo[0]['photo'])
-            print("2")
-            if title == '' or text == '':
-                return JsonResponse({'res': '0'})
-            else:
-                Mypost.objects.filter(pk=pk).update(title=request.POST['title'], text=request.POST['text'], photo=my_photo[0]['photo']) #, photo=request.POST['photo']
-                return Response(serializer.data)
+
+            # if title == '' or text == '':
+            #     return JsonResponse({'res': '0'})
+            # else:
+            Mypost.objects.filter(pk=pk).update(title=request.POST['title'], text=request.POST['text'], photo=my_photo[0]['photo']) #, photo=request.POST['photo']
+            return Response(serializer.data)
             #return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 

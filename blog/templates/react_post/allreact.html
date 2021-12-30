@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}reactJS{% endblock title %}
+
+{% block content %}
+<div class=""></div>
+    <div class="myPosts row row-blog-list"></div>
+
+{% endblock content %}
+
+{% block apiblogJS %}
+
+    <script type="text/javascript" src="{% static "api/js/apiblogjs.js" %}"></script><!--без этого не загружается 2212-->
+
+{% endblock apiblogJS %}

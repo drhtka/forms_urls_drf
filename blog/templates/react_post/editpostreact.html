@@ -7,7 +7,7 @@
 
     {#<div><a href="{% url 'blog:blogs_list' %}"><span>Главная</span></a></div>#}
     <div class=" d-flex justify-content-center">
-        <form enctype="multipart/form-data">
+        <form enctype="multipart/form-data" class="needs-validation" novalidate>
             <div class=" d-flex justify-content-center">
                 <div class=" d-flex flex-column m-5">
                     <label for="validationCustom03" class="form-label">Название</label>
@@ -20,8 +20,7 @@
                     <div class="invalid-feedback" id="invalid-feedback-text">
                         Введите текст
                     </div>
-                    <input class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-12 mt-2 mb-2" type="file" name="publish_photo" >
-                    <a href="{{ MEDIA_URL }}{{ post_ditail.photo }}">{{ post_ditail.photo }}</a>
+                    <input class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-12 mt-2 mb-2" type="file" name="publish_photo"><a href="{{ MEDIA_URL }}{{ post_ditail.photo }}">{{ post_ditail.photo }}</a>
                     <input class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-12 mt-2 mb-2" type="button" onclick="editeGist({{ post_ditail.pk }})" value="Сохранить запись">
                 </div>
             </div>
@@ -70,38 +69,25 @@
         }
 
 
-        function editeGist (idpost, event){
+
+        async function editeGist (idpost){
 
             {#alert(idpost)#}
-            let publish_author = '1'
-            let publish_title = document.getElementsByName('publish_title')[0].value
-            let publish_text = document.getElementsByName('publish_text')[0].value
+            var publish_author = 'default'
+            var publish_title = document.getElementsByName('publish_title')[0].value
+            var publish_text = document.getElementsByName('publish_text')[0].value
             let pk = idpost
-            let formData = new FormData();
             let csrftoken = getCookie('csrftoken');
-            let fileField = document.querySelector('input[type="file"]');
-            /*console.log('photo')
-            if (fileField.files[0] == undefined){
-                alert('undefined')
-                formData.append('photo', fileField.files[0]);
-            }else{
-                alert('fileField')
-                console.log(fileField.files[0])
-                formData.append('photo', fileField.files[0]);
-            }*/
-
-            ////console.log(fileField.files[0])
+            const formData = new FormData();
+            const fileField = document.querySelector('input[type="file"]');
+            console.log('photo')
+            console.log(fileField.files[0])
 
             formData.append('author', publish_author);
-            {#formData.append('photo', fileField.files[0]);#}
-            {#if (fileField){#}
-            {#    formData.append('photo', fileField.files[0]);#}
-            {#    alert('formData')#}
-            {#    formData.append('photo', fileField.files[0]);#}
-            //}
-            if (publish_text == ''){//publish_title != '' &&
-                {#alert('1 пареметр тайтл заполнен')#}
 
+            if (publish_text == ''){//publish_title != '' &&
+                alert('1 пареметр тайтл заполнен')
+                event.preventDefault()
                 {#document.getElementsByName('publish_title')[0].style.border = '1px solid #28a745'#}
                 {#document.getElementById('invalid-feedback-title').style.display = 'none'#}
                 {#document.getElementById("validationTooltip01").required = true#}
@@ -109,12 +95,11 @@
                 document.getElementById("validationTextarea").required = false
                 {#console.log(document.getElementById("customFileLang").required)#}
                 document.getElementById('invalid-feedback-text').style.display = 'block'
-                event.preventDefault()
 
             }
             if (publish_title == ''){//publish_text != '' &&
-                {#alert('1 текст заполнен')#}
-
+                alert('1 пареметр текст заполнен')
+                event.preventDefault()
                 {#document.getElementsByName('publish_text')[0].style.border = '1px solid #28a745'#}
                 {#document.getElementById('invalid-feedback-text').style.display = 'none'#}
                 {#document.getElementById("validationTextarea").required = true#}
@@ -122,33 +107,27 @@
                 document.getElementById("validationTooltip01").required = false
                 {#console.log(document.getElementById("customFileLang").required)#}
                 document.getElementById('invalid-feedback-title').style.display = 'block'
-                event.preventDefault()
             }
 
-            if (publish_title != '' && publish_text != '' ){// && fileField.files[0] != undefined
-                {#alert('все заполнено')#}
+            if (publish_title != '' && publish_text != ''){// && fileField.files[0] != undefined
+                alert('все заполнено')
                 document.getElementsByName('publish_title')[0].style.border = '1px solid #28a745'
-                //document.getElementById("validationTooltip01").required = false
+                document.getElementById("validationTooltip01").required = false
                 {#console.log(document.getElementById("customFileLang").required)#}
                 document.getElementById('invalid-feedback-title').style.display = 'none'
                 document.getElementsByName('publish_text')[0].style.border = '1px solid #28a745'
-                //document.getElementById("validationTextarea").required = false
+                document.getElementById("validationTextarea").required = false
                 {#console.log(document.getElementById("customFileLang").required)#}
                 //document.getElementById('invalid-feedback-text').style.display = 'none'
                 //document.getElementsByName('publish_photo')[0].style.border = '1px solid #28a745'
                 //document.getElementById('invalid-feedback-file').style.display = 'none'
                 formData.append('title', publish_title);
                 formData.append('text', publish_text);
-                //formData.append('photo', '35.jpg');
-                {#alert('fileField')#}
-                console.log(fileField.files[0])
-                formData.append('photo', fileField.files[0]);
-                console.log('formData')
-                console.log(formData)
+                //formData.append('photo', fileField.files[0]);
             }
 
-
-            {#alert('formData')#}
+            console.log('formData')
+            console.log(formData)
             /*fetch("http://127.0.0.1:8991/api/posts/" + pk, {
                 method: "put",
                 credentials: "same-origin",
@@ -158,16 +137,16 @@
                 body: formData
             })*/
             //try {
-
                 fetch("http://127.0.0.1:8991/api/posts/" + pk, {
                     method: 'put',
                     credentials: "same-origin",
                     headers: {
+                        'Content-type': 'application/json; charset=UTF-8',
                         "X-CSRFToken": csrftoken,
                     },
                     body: formData
                 }).then(function (response) {
-                    console.log('response.json()')
+                    {#console.log('response.json()')#}
                     if (response){
                         console.log('response')
                         console.log(response.text())

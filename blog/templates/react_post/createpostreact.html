@@ -27,7 +27,7 @@
        </div>
    </form>
     <script>
-        // если поле для фото пустое на лету меняем цвет и пишлем полдсказку
+
         function chekEmptyTytle(my_this){
             if (my_this.value.length == 0){
                 document.getElementsByName('publish_title')[0].style.border = '1px solid red'
@@ -38,7 +38,7 @@
 
             }
         }
-        // если поле для текст пустое на лету меняем цвет и пишлем полдсказку
+
         function chekEmptyText(my_this){
             if (my_this.value.length == 0){
             document.getElementsByName('publish_text')[0].style.border = '1px solid red'
@@ -95,7 +95,6 @@
             {#console.log('formData-formData1')#}
             console.log('photo_create')
             console.log(fileField.files[0])
-            alert('photo')
 
 
 
@@ -273,7 +272,9 @@
                 headers: {
                     "X-CSRFToken": csrftoken,
                 },
+
                 body: formData
+
             }).then(function (response) {
                 console.log('response.json()')
                 console.log(response.json())

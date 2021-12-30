@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Detail JS{% endblock title %}
+{% block content %}apidateilblogjs
+    <div class=""></div>
+    <div class="myPostsDetail"></div>
+
+    {% comment %}<div class="d-flex justify-content-start">
+        <div class=" m-4 p-4">
+            <span> Django </span>
+            <img class="main_img" src="{{ MEDIA_URL }}{{ post_ditail.photo }}" width="176" height="185">
+        </div>
+
+        <div class="d-flex flex-column m-4 p-4">
+            <div>Детальное описание</div>
+            <div>Номер:{{ post_ditail.pk }}</div>
+            <div>Автор:  {{ post_ditail.author }}</div>
+            <div>Тайтл: {{ post_ditail.title }}</div>
+            <div>Текст: {{ post_ditail.text }}</div>
+            <div>Дата: {{ post_ditail.publish_date }}</div>
+
+            {% if post_ditail.publish_date %}
+                <div class="date">
+
+                    <input type="button" onclick="editeGist({{ post_ditail.pk }})"><span>редактировать </span>
+                    <input type="button" onclick="deleteGist({{ post_ditail.pk }})"><span>Удалить</span>
+                </div>
+            {% endif %}
+        </div>
+    </div>{% endcomment %}
+
+    <script>
+
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie != '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        function editeGist (idpost){
+            let pk = idpost
+            location.href='/blog/apieditblogjs/' + pk
+
+        }
+
+
+    function deleteGist (idpost){
+        let pk = idpost
+        let csrftoken = getCookie('csrftoken');
+        fetch("http://127.0.0.1:8991/api/posts/" + pk, {
+            method: "delete",
+            credentials: "same-origin",
+            headers: {
+                "X-CSRFToken": csrftoken,
+            },
+        }).then(function (response) {
+            {#console.log('response.json()')#}
+            if (response){
+                location.href='/blog/apiblogjs/'
+            }
+
+        })
+    }
+
+
+    </script>
+
+{% endblock content %}
+
+{% block apiblogJS %}
+
+    <script type="text/javascript" src="{% static "api/js/apidetailblogjs.js" %}"></script><!--без этого не загружается 2212-->
+
+{% endblock apiblogJS %}

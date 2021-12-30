@@ -93,13 +93,24 @@ def ApiCreateblogjs(request):
     return render(request, 'apicreateblogjs.html',)
 
 def ApiDetailblogjs(request, pk):
-
     post_ditail = Mypost.objects.all().filter(pk=pk)
-
     return render(request, 'apidetailblogjs.html',{'post_ditail': post_ditail[0]})
 
 def ApiEditblogjs(request, pk):
-
     post_ditail = Mypost.objects.all().filter(pk=pk)
-
     return render(request, 'apieditblogjs.html',{'post_ditail': post_ditail[0]})
+
+def AllPostsReact(request):
+    return render(request, 'react_post/allreact.html', )
+
+def CreatePostReact(request):
+    return render(request, 'react_post/createpostreact.html',)
+
+def DetailPostReact(request, pk):
+    post_ditail = Mypost.objects.all().filter(pk=pk)
+    return render(request, 'react_post/detailreact.html',{'post_ditail': post_ditail[0]})
+
+def EditPostReact(request, pk):
+    post_ditail = Mypost.objects.all().filter(pk=pk)
+    return render(request, 'react_post/editpostreact.html',{'post_ditail': post_ditail[0]})
+
