@@ -23,7 +23,8 @@ function postsApiDetail(data){
                                 '<div>' + '<span>Текст: </span>' + one_post.text + '</div>' +
                                 '<div>' + '<span>Дата: </span>' + one_post.publish_date + '</div>' +
             '<a class="text-decoration-none btn border-2 border-success mb-2 mt-1" onclick=ApiGetEdit(' + one_post.id + ')>' + '<span">Редактировать </span>' + '</a>' +
-            '<a class="text-decoration-none btn border-2 border-danger" href=' + link + one_post.id + '>' + '<span>Удалить </span>' + '</a>' +
+            '<a class="text-decoration-none btn border-2 border-danger" onclick=ApiDeletJs(' + one_post.id + ')>' + '<span>Удалить </span>' + '</a>' +
+            // '<a class="text-decoration-none btn border-2 border-danger" href=' + link + one_post.id + '>' + '<span>Удалить </span>' + '</a>' +
                 '</div>' +
                 '</div>'
 
@@ -83,6 +84,19 @@ let pk = url[5];
 function ApiGetEdit(id){
         pk = id
     location.href = '/blog/apieditblogjs/' + pk
+}
+
+function ApiDeletJs(){
+    fetch("http://127.0.0.1:8991/api/posts/" + pk, {
+        method: 'delete',
+    }).then(function (response) {
+        console.log('response.json()')
+        if (response){
+            // console.log('response')
+            // console.log(response.text())
+            location.href = 'http://127.0.0.1:8991/blog/apiblogjs/'
+        }
+    })
 }
 
 

@@ -51,11 +51,14 @@ class PostListUrlView(APIView):
     def put(self, request, pk):
         print('put')
         print(request.POST)
-        print(request.data)
-        print('request.data.photo')
-        photo = request.data['photo']
+
         title =request.POST['title']
         text =request.POST['text']
+        print(request.data)
+        print('request.data.photo')
+
+        photo = request.data['photo']
+
         print('photo')
         print(photo)
         #  photo_blog/2021/12/15/069.jpg
@@ -70,11 +73,9 @@ class PostListUrlView(APIView):
             serializer.save()
             return Response(serializer.data)
         else:
-            print("2")
-            print(pk)
             my_photo = Mypost.objects.filter(pk=pk).values('photo')
-            print('my_photo')
-            print(my_photo[0]['photo'])
+            # print('my_photo')
+            # print(my_photo[0]['photo'])
 
             # if title == '' or text == '':
             #     return JsonResponse({'res': '0'})
@@ -85,6 +86,9 @@ class PostListUrlView(APIView):
 
 
     def delete(self, request, pk):
+
+        print('delete')
+
         snippet = get_object_or_404(Mypost, pk=pk)
         serializer = PostSerializer(snippet)
         data = serializer.data
