@@ -1,7 +1,8 @@
 # BLOG
- - Django==2.2
+ - Django
 - DRF 
 - JS
+- ReactJS
 - AJAX(FETCH)
 
 **Install**
@@ -12,4 +13,6 @@
      <div>- Удалить</div>
     <div>- Отредактировать</div>
     <div>- Добавить</div>
-Из админки, шаблона и JS API
+Из админки, шаблона и JS ReactJS API
+
+   ![alt text](screenshots/filename.jpg "Описание будет тут")
