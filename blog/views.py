@@ -1,6 +1,6 @@
 #-*- coding: utf-8 -*-
-from django.shortcuts import render
-from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect, HttpResponse
+
+from django.shortcuts import render, redirect
 from blog.models import Mypost
 from blog.forms import CreateForms
 # Create your views here.
@@ -100,6 +100,7 @@ def ApiEditblogjs(request, pk):
     post_ditail = Mypost.objects.all().filter(pk=pk)
     return render(request, 'apieditblogjs.html',{'post_ditail': post_ditail[0]})
 
+###   ResctJS   #####
 def AllPostsReact(request):
     return render(request, 'react_post/allreact.html', )
 

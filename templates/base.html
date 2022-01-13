@@ -2,12 +2,24 @@
 <!doctype html>
 <html lang="en">
 <head>
+{#        <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>#}
+{#        <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>#}
+{#        <script src="https://unpkg.com/babel-standalone@6.17.0/babel.min.js"></script>#}
+{#    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>#}
+{#    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>#}
+{#    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>#}
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static "blog/blog.css" %}" type="text/css">
+
+{% block extrahead %}
+{#    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>#}
+{#    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>#}
+{#    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>#}
+{% endblock %}
 {#    <link rel="stylesheet" href="{% static "todo/css/style.css" %}" type="text/css">#}
 
     <title> {% block title %}Document{% endblock title %}</title>
@@ -96,20 +108,39 @@
 {% block content %}
 {% endblock content %}
 </div>
+
+{#<div id="app">#}
+
+</div>
 <!--  JS -->
+
+{#<script type="text/javascript" src="{% static "api/js/createpostreact.js" %}"></script>#}
+
+{#    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>#}
+{#    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>#}
+{#    <script src="https://unpkg.com/babel-standalone@6.17.0/babel.min.js"></script>#}
+{#    <script type="text/javascript" src="{% static "api/js/apiblogreact.js" %}"></script>#}
+
+{% block react %}{% endblock react %}
+
 {% block JS_main %}
+{##}
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-{% endblock JS_main %}
 
+{% endblock JS_main %}
 {% block apiblogJS %}
 {% endblock apiblogJS %}
 <script>
-{% block apidetailblogJS %}
-{% endblock apidetailblogJS %}
+// {% block apidetailblogJS %}
+// {% endblock apidetailblogJS %}
 </script>
+
+
+
+
 
 <div class="container">
     {% block footer %}

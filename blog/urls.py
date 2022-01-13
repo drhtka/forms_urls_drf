@@ -23,6 +23,7 @@ urlpatterns = [
     path('reatepostreact/', CreatePostReact, name='reatepostreact'),
     path('detailblogreact/<int:pk>', DetailPostReact, name='detailblogreact'),
     path('editlblogreact/<int:pk>', EditPostReact, name='editlblogreact'),
+    path('__debug__/', include('debug_toolbar.urls')),
 
     # url(r'^myac/new/$', 'myforact.views.myac_new', name='myac_new'),
     # url(r'^myac/(?P<pk>[0-9]+)/$', 'myforact.views.myac_detal', name='myac_detal'),

@@ -1,16 +1,21 @@
 {% extends "base.html" %}
 {% load static %}
 
+
 {% block title %}reactJS{% endblock title %}
 
 {% block content %}
-<div class=""></div>
-    <div class="myPosts row row-blog-list"></div>
 
+<div>React</div>
+    <div id="app" class="row">5</div>
+  <!--без этого не загружается 2212-->
 {% endblock content %}
-
+{% block react %}
+        <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+        <script src="https://unpkg.com/babel-standalone@6.17.0/babel.min.js"></script>
+        <script type="text/babel" src="{% static "api/js/apiblogreact.js" %}"></script>
+{% endblock react %}
 {% block apiblogJS %}
-
-    <script type="text/javascript" src="{% static "api/js/apiblogjs.js" %}"></script><!--без этого не загружается 2212-->
-
 {% endblock apiblogJS %}
+

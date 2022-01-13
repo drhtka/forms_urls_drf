@@ -72,9 +72,7 @@ window.onload = postsApiDetail
 
 const url = document.URL.split('/');
 let pk = url[5];
-
 // var categ_index = params1.get("categ_index")
-
     fetch('http://127.0.0.1:8991/api/posts/' + pk)
         // Handle success
         .then(response => response.json())  // convert to json
