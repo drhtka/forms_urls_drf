@@ -11,6 +11,19 @@ class AppDetail extends React.Component{
         location.href = '/blog/editlblogreact/' + id
     }
 
+    ApiDeletJs(id){
+        fetch("http://127.0.0.1:8991/api/posts/" + id, {
+            method: 'delete',
+        }).then(function (response) {
+            console.log('response.json()')
+            if (response){
+                // console.log('response')
+                // console.log(response.text())
+                location.href = 'http://127.0.0.1:8991/blog/allpostsreact/'
+            }
+        })
+    }
+
     componentDidMount(){
         const url = document.URL.split('/');
         let pk = url[5];
@@ -39,7 +52,9 @@ class AppDetail extends React.Component{
                         <div><span>Текст: </span>{item.text}</div>
                         <div className="publish_date"><span>Дата: </span>{item.publish_date}</div>
                         <a className="text-decoration-none btn border-2 border-success mb-2 mt-1" onClick={this.ApiGetEdit.bind(this, item.id)}><span>Редактировать </span></a>
-                    </div>
+                        <a className="text-decoration-none btn border-2 border-danger" onClick={this.ApiDeletJs.bind(this, item.id)}><span>Удалить </span></a>
+
+            </div>
                 </div>
                 });
                 return <div>

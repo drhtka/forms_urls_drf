@@ -13,7 +13,7 @@
                     <div><span>Номер поста: </span>{{ all_posts_s.pk }}</div>
                     <div><span> </span><img class="main_img" src="{{ MEDIA_URL }}{{ all_posts_s.photo }}" ></div>
                     <div><span>Название: </span>{{ all_posts_s.title }}</div>
-                    <div><span>Текст: </span>{{ all_posts_s.text }}</div>
+                    <div class="text-truncate"><span>Текст: </span>{{ all_posts_s.text }}</div>
                     <div><span>Публикации: </span>{{ all_posts_s.publish_date }}</div>
                 </div>
         {% endfor %}
