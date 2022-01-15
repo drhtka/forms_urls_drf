@@ -109,3 +109,9 @@ body
     font-size: 80%;
     color: #dc3545;
 }
+
+.btn-size{
+    height: 51px;
+    width: 160px;
+
+}
