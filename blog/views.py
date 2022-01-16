@@ -1,16 +1,17 @@
 #-*- coding: utf-8 -*-
 
 from django.shortcuts import render, redirect
-from blog.models import Mypost
+from blog.models import Mypost, MainPage
 from blog.forms import CreateForms
 # Create your views here.
 
 
 def index(request):
     all_posts = Mypost.objects.all()
+    maintext = MainPage.objects.all()
     # print('all_posts_all')
     # print(all_posts)
-    context = {'all_posts': all_posts}
+    context = {'maintext': maintext}
     return render(request, 'index.html', context)
 
 
@@ -23,8 +24,9 @@ def BlogList(request):
 
 def PostDitail(request, pk):
     post_ditail = Mypost.objects.all().filter(pk=pk)
-    # print('post_ditail')
-    # print(post_ditail[0])
+
+    print('post_ditail')
+    print(post_ditail[0])
     return render(request, 'blog_ditail.html', {'post_ditail': post_ditail[0]})
 
 def CreatePost(request):

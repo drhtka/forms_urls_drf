@@ -38,6 +38,7 @@ urlpatterns = [
          api_views.PostListUrlView.as_view(),
         name="api_post_detail"),
     # path('api/todo/<int:pk>', api_views.ToDoDetailView.as_view()),
+    path('summernote/', include('django_summernote.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

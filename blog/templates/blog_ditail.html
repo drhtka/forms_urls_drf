@@ -17,10 +17,10 @@
             <div>Дата: {{ post_ditail.publish_date }}</div>
 
             {% if post_ditail.publish_date %}
-                <div class="date">
+                <div class="date d-flex flex-column">
                     {% csrf_token %}
-                    <a href="{% url 'blog:edit' pk=post_ditail.pk %}"><span style="color: blue">редактировать </span></a>
-                    <div><a href="{% url 'blog:delete' pk=post_ditail.pk %}"><span>Удалить</span></a></div>
+                    <a class="text-decoration-none btn border-2 border-success mb-2 mt-1" href="{% url 'blog:edit' pk=post_ditail.pk %}"><span style="color: blue">редактировать </span></a>
+                    <a class="text-decoration-none btn border-2 border-danger" href="{% url 'blog:delete' pk=post_ditail.pk %}"><span>Удалить</span></a>
                 </div>
             {% endif %}
         </div>

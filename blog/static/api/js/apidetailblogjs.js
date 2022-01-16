@@ -14,7 +14,7 @@ function postsApiDetail(data){
     var newImage = document.createElement('img')
 
         api_one += '<div class="d-flex justify-content-start">' +
-                        '<div class=" m-4 p-4">' + '<span>JS</span>' +
+                        '<div class=" m-4 p-4">' + '<span></span>' +
                         '<img class="main_img" src="' + one_post.photo + '"/>' + '</div>' +
                         '<div class="d-flex flex-column m-4 p-4">' +
                                 '<div>' + '<span>Автор:</span>' + one_post.author + '</div>' +

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" remoteFilesAllowedToDisappearOnAutoupload="false">
+  <component name="PublishConfigData" autoUpload="Always" serverName="forms_urls_drf" preserveTimestamps="false" createEmptyFolders="true" traceLevel="BRIEF" remoteFilesAllowedToDisappearOnAutoupload="false" autoUploadExternalChanges="true">
     <serverData>
       <paths name="cp4.hyperhost.ua">
         <serverdata>
@@ -9,6 +9,25 @@
           </mappings>
         </serverdata>
       </paths>
+      <paths name="forms_urls_drf">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/forms_urls_drf/forms_urls_drf" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="$PROJECT_DIR$/venv" />
+            <excludedPath local="true" path="$PROJECT_DIR$/blog/migrations" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
+      <paths name="websocket@192.168.181.129:2202">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
     </serverData>
+    <option name="myAutoUpload" value="ALWAYS" />
   </component>
 </project>

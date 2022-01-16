@@ -5,6 +5,13 @@
 
 
     {% block content %}
-
-        <h4>Главная</h4>
+<div class="mt-5">
+        {% for maintext in maintext %}
+            {%  if maintext.done == True %}
+        <div class="h3 text-capitalize text-center">{{ maintext.title }}</div>
+            <div>{{ maintext.text|safe }}</div>
+            <div>{{ maintext.created }}</div>
+            {% endif %}
+        {% endfor %}
+</div>
     {% endblock content %}

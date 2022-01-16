@@ -25,9 +25,31 @@ class Mypost(models.Model):
 
     def __str__(self):
         # return self.title
-        return f'My post: {self.text}({"" if self.done else "not"}done)'
+        return f'My post: {self.title}({"" if self.done else "not"}done)'
 
 class Comment(models.Model):
+
+    class Meta:
+        verbose_name_plural = 'Комментарии'
+
     blogpost = models.ForeignKey(Mypost, related_name='comments', on_delete=models.CASCADE)
     comment = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
+
+    def __int__(self):
+        return self.id
+
+
+class MainPage(models.Model):
+
+    class Meta:
+        verbose_name = 'Текст на главной'
+        verbose_name_plural = 'Текст на главной'
+
+    title = models.CharField('Заголовок', max_length=120)
+    text = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    done = models.BooleanField('Активный', default=False)
+
+    def __str__(self):
+        return self.title
